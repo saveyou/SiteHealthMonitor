@@ -1,6 +1,6 @@
 require 'twilio-ruby'
 require 'http'
-require './config'
+require_relative './config'
 
 # set up a client to talk to the Twilio REST API
 @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
