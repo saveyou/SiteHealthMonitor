@@ -1,44 +1,32 @@
 require 'twilio-ruby'
 require 'http'
-
-# put your own credentials here
-account_sid = 'XXX'
-auth_token = 'XXX'
+require './config'
 
 # set up a client to talk to the Twilio REST API
-@client = Twilio::REST::Client.new account_sid, auth_token
+@client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
 
-# alternatively, you can preconfigure the client like so
-Twilio.configure do |config|
-  config.account_sid = account_sid
-  config.auth_token = auth_token
+def send_alert(message)
+  @client.messages.create(
+      from: NUM_FROM,
+      to: NUM_TO,
+      body: message
+  )
 end
-
-# and then you can create a new client without parameters
-@client = Twilio::REST::Client.new
 
 #HTTP.timeout(:global, :write => 1, :connect => 1, :read => 1)
 begin
-  resp = HTTP.get("http://www.example.id")
+  resp = HTTP.get(SITE)
   if resp.status.to_i == 200
     p "Live"
+    send_alert(SAFE_MESSAGE)
   else
     p "Site Down"
-    @client.messages.create(
-        from: '+6285574679583',
-        to: '+6285769800705',
-        body: 'Example Down'
-    )
+    send_alert(WARNING_MESSAGE)
   end
 rescue Exception => e
   puts e.message
   puts e.backtrace.inspect
-  @client.messages.create(
-      from: '+6285574679583',
-      to: '+6285769800705',
-      body: 'Lirikbagus Down'
-  )
   p "Site Down"
+  send_alert(WARNING_MESSAGE)
 end
-
 p "Done"

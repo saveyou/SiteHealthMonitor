@@ -53,3 +53,5 @@ workspace.xml
 scope_settings.xml
 encodings.xml
 .idea
+config.rb
+Gemfile.lock

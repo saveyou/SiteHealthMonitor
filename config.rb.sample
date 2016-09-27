@@ -1,0 +1,7 @@
+ACCOUNT_SID = 'XXX'
+AUTH_TOKEN = 'XXX'
+NUM_FROM = '+62XXX'
+NUM_TO = '+62XXX'
+SITE = 'http://www.xxx.id'
+WARNING_MESSAGE = SITE + ' is down'
+SAFE_MESSAGE = SITE + ' is up & healthy'
