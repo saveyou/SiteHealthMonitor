@@ -1,7 +1,7 @@
 require 'twilio-ruby'
 require 'http'
 require_relative './config'
- 
+
 # set up a client to talk to the Twilio REST API
 @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
 
@@ -18,7 +18,10 @@ begin
   resp = HTTP.get(SITE)
   if resp.status.to_i == 200
     p "Live"
-    send_alert(SAFE_MESSAGE)
+    now = Time.now
+    hour = now.strftime('%H')
+    minute =  now.strftime('%M')
+    send_alert(SAFE_MESSAGE) if ["08","15","20"].include?(hour) && minute == "00"
   else
     p "Site Down"
     send_alert(WARNING_MESSAGE)
