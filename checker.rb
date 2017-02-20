@@ -23,7 +23,7 @@ def process(site)
 	    now = Time.now
 	    hour = now.strftime('%H')
 	    minute =  now.strftime('%M')
-	    send_alert(format(SAFE_MESSAGE, site)) if ["08","15","20"].include?(hour) && minute == "00"
+	    #send_alert(format(SAFE_MESSAGE, site)) if ["08","15","20"].include?(hour) && minute == "00"
 	  else
 	    p "Site Down"
 	    send_alert(format(WARNING_MESSAGE, site))
